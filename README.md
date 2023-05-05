@@ -6,3 +6,4 @@
 # Resources:
  - https://www.codingnepalweb.com/detect-browser-in-javascript/
  - https://www.youtube.com/watch?v=S9X5x51wxkg
+ - https://openjavascript.info/2022/09/09/get-a-users-location-with-frontend-javascript/
