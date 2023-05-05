@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="el" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Πληροφορίες χρήστη και ανίχνευση browser</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script>
+    async function getUserData() {
+      const response = await fetch('http://ip-api.com/json/');
+      const data = await response.json();
+      if (response.status === 200) {
+        document.getElementById("ip").textContent = data.query;
+        document.getElementById("city").textContent = data.city;
+        document.getElementById("region").textContent = data.regionName;
+        document.getElementById("country").textContent = data.country;
+        document.getElementById("isp").textContent = data.isp;
+      } else {
+        alert("Δεν ήταν δυνατή η λήψη των πληροφοριών του χρήστη.");
+      }
+    }
+
+    function detectBrowser() {
+      let userAgent = navigator.userAgent;
+      let browser;
+      if(userAgent.match(/edg/i)){
+        browser = "edge";
+      }else if(userAgent.match(/firefox|fxios/i)){
+        browser = "firefox";
+      }else if(userAgent.match(/opr\//i)){
+        browser = "opera";
+      }else if(userAgent.match(/chrome|chromium|crios/i)){
+        browser = "chrome";
+      }else if(userAgent.match(/safari/i)){
+        browser = "safari";
+      }else{
+        alert("Other browser");
+      }
+      const logo = document.querySelector(`.logos .${browser}`);
+      if(logo){
+        logo.style.opacity = "1";
+      }
+    }
+  </script>
+</head>
+<body onload="getUserData(); detectBrowser();">
+  <div class="wrapper" id="informations"> 
+  <h1>Πληροφορίες χρήστη</h1>
+  <p>IP: <span id="ip"></span></p>
+  <p>Πόλη: <span id="city"></span></p>
+  <p>Περιοχή: <span id="region"></span></p>
+  <p>Χώρα: <span id="country"></span></p>
+  <p>ISP: <span id="isp"></span></p>
+  </div>
+  <p></p>
+  <div class="wrapper" id="browser">
+    <h2>Browser:</h2>
+    <div class="logos">
+      <img class="chrome" src="logos/chrome.png" alt="chrome" title="Google Chrome">
+      <img class="firefox" src="logos/firefox.png" alt="firefox" title="Mozilla Firefox">
+      <img class="edge" src="logos/edge.png" alt="edge" title="Microsoft Edge">
+      <img class="opera" src="logos/opera.png" alt="opera" title="Opera">
+      <img class="safari" src="logos/safari.png" alt="safari" title="Apple Safari">
+      </div>
+    </div>
+  </body>
+</html>
